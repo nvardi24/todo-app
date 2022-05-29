@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-
+import AddTodo from './components/AddTodo';
+import Todos from './components/Todos';
+import { Button } from '@mui/material';
+import { markAllAsCompleted } from './util';
 function App() {
+  const [todos, setTodos] = useState([]);
+  const markAll =()=>{
+    markAllAsCompleted().then(data=>setTodos(data));
+
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTodo setTodos={setTodos}/>
+      <Todos todos={todos} setTodos={setTodos}/>
+      <Button onClick={markAll}>Mark all as completed, I need a beer</Button>
     </div>
   );
 }
